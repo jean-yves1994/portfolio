@@ -65,6 +65,7 @@ section > h2,
 section > h5 {
   text-align: center;
   color: var(--color-light);
+  
 }
 
 section > h2 {
@@ -122,11 +123,12 @@ img {
 }
 
 /*============Small devices========*/
-@media screen and(max-width:1024px) {
+@media screen and(max-width:600px) {
   .container {
     width: var(--container-width-sm);
   }
-  section > h2 {
+  section > h2{
     margin-top: 2rem;
   }
+  
 }
