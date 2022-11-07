@@ -1,10 +1,32 @@
-import React from "react";
 import "./contact.css";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiMessengerLine } from "react-icons/ri";
 import { BsWhatsapp } from "react-icons/bs";
+import emailjs from "emailjs-com";
+import React, { useRef } from "react";
 
 const Contact = () => {
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_cjcqo3p",
+        "template_p22kqem",
+        form.current,
+        "Glmj2Lf4bSXZNPFdR"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+  };
   return (
     <section id="contact">
       <h5>Get in Touch</h5>
@@ -12,25 +34,46 @@ const Contact = () => {
       <div className="container contact__container">
         <div className="contact__options">
           <article className="contact__option">
-            <MdOutlineEmail/>
+            <MdOutlineEmail className="contact__option-icon" />
             <h4>Email</h4>
             <h5>roidalas@gmail.com</h5>
-            <a href="">Send a message</a>
+            <a href="mailto:roidalas@gmail.com" target="_blank">
+              Send a message
+            </a>
           </article>
           <article className="contact__option">
-            <RiMessengerLine/>
+            <RiMessengerLine className="contact__option-icon" />
             <h4>Messenger</h4>
             <h5>Yves king Dala</h5>
-            <a href="">Send a message</a>
+            <a href="https://m.me/yves.dala" target="_blank">
+              Send a message
+            </a>
           </article>
           <article className="contact__option">
-            <BsWhatsapp/>
+            <BsWhatsapp className="contact__option-icon" />
             <h4>Whatsapp</h4>
             <h5>+250785252225</h5>
-            <a href="">Send a message</a>
+            <a
+              href="https://api.whatsapp.com/send?phone=+250785252225"
+              target="_blank"
+            >
+              Send a message
+            </a>
           </article>
         </div>
-        <form action=""></form>
+        <form ref={form} onSubmit={sendEmail}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Full Name"
+            required
+          />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea name="message" rows="7"></textarea>
+          <button type="submit" className="btn btn-primary">
+            Send Message
+          </button>
+        </form>
       </div>
     </section>
   );
